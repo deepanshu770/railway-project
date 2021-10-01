@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>Railway-Train</title>
+{% endblock title %}
+{% block body %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/home">Railway</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="/home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/booking">Book</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/status">Status</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/cancel">Cancel</a>
+          </li>
+          
+  
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"></a>
+          </li>
+        </ul>
+        <div class="d-flex">
+          <a style="position: relative;top: 4px;right: 5px;">{{user}}</a>
+          <form action="/home" method="POST">
+            <button type="submit" class="btn btn-primary btn-sm">Logout</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+<div class="container my-6">
+    <div class="card">
+        <h5 class="card-header">{{obj.train_from}} to {{obj.train_to}}</h5>
+        <div class="card-body">
+            <h5 class="card-title">{{obj.train_name}} - {{obj.train_number}}</h5>
+            <h6>Departure- {{obj.dep_t.strftime("%a")}}, {{obj.dep_t.strftime("%b %d")}} - {{obj.dep_t.strftime("%H:%M")}}</h6>
+            <h6>Arrival- {{obj.arr_t.strftime("%a")}}, {{obj.arr_t.strftime("%b %d")}} - {{obj.arr_t.strftime("%H:%M")}}</h6>
+            <p class="card-text">Available Seats - {{obj.avai_seats}}</p>
+            <p class="card-text">Ticket Price - Rs. {{obj.train_fare}}</p>
+            <div class="col-sm-6 form-group">
+                <label for="number">No. of Tickets</label>
+                <select onchange="getValue()" name="gender" id="number" class="form-control browser-default custom-select">
+                <option value="" selected>Enter Here</option>
+                {% for i in range(5) %}
+                <option value="{{i+1}}">{{i+1}}</option>
+                    
+                {% endfor %}
+                <script>
+                 function getValue(){
+                    var n = document.getElementById("number").value;
+                    console.log(n)
+                    document.getElementById("button").setAttribute("href","/booking/{{obj.train_name}}/{{obj.train_number}}/{{obj.train_fare}}/{{obj.total_seats}}/{{obj.avai_seats}}/{{obj.train_from}}/{{obj.train_to}}/{{obj.dep_t.strftime('%Y-%m-%d %H:%M:%S')}}/{{obj.arr_t.strftime('%Y-%m-%d %H:%M:%S')}}/"+n)
+                 }
+
+                </script>
+            </select>
+            </div>
+            <div class="container my-3">
+            <a id="button" class="btn btn-primary">Book Ticket</a>
+        </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}

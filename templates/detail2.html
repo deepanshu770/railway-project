@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>Details</title>
+{% endblock title %}
+{% block body %}
+    <body>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/home">Railway</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/home">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="/booking">Book</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/status">Status</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="/cancel">Cancel</a>
+              </li>
+              
+      
+              <li class="nav-item">
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"></a>
+              </li>
+            </ul>
+            <div class="d-flex">
+              <a style="position: relative;top: 4px;right: 5px;">{{user}}</a>
+              <form action="/home" method="POST">
+                <button type="submit" class="btn btn-primary btn-sm">Logout</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+          <div class="container my-3">
+            <form class="row g-3" action="/bookingTicket/{{obj.train_name}}/{{obj.train_number}}/{{obj.train_fare}}/{{obj.total_seats}}/{{obj.avai_seats}}/{{obj.train_from}}/{{obj.train_to}}/{{obj.dep_t.strftime('%Y-%m-%d %H:%M:%S')}}/{{obj.arr_t.strftime('%Y-%m-%d %H:%M:%S')}}/{{noft}}" method="POST">
+              <h4 class="text-center">Ticket for {{obj.train_name}}</h4>
+              <h5 >Enter Details of Passenger {{no}}</h5>
+              
+                <div class="col-md-6">
+                  <label for="inputEmail4" class="form-label">First Name</label>
+                  <input required type="text" name="fname" class="form-control" id="inputEmail4">
+                </div>
+                <div class="col-md-6">
+                  <label for="inputPassword4" class="form-label">Last Name</label>
+                  <input required type="text" name="lname" class="form-control" id="inputPassword4">
+                </div>
+                <hr>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="Male" checked>
+                    <label class="form-check-label" for="exampleRadios1">
+                      Male
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="Female">
+                    <label class="form-check-label" for="exampleRadios2">
+                     Female
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="Other">
+                    <label class="form-check-label" for="exampleRadios2">
+                    other
+                    </label>
+                  </div>
+                 
+                <hr>
+                <div class="col-md-2">
+                  <label for="inputZip" class="form-label">Age</label>
+                  <input type="text" required class="form-control" name="pas_age" id="inputZip">
+                </div>
+            
+                <div class="col-end-12">
+              
+                  <button type="submit" class="btn btn-primary">Book Ticket</button>
+                </div>
+              </form>
+          </div>
+    </body>
+{% endblock body %}

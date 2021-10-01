@@ -1,0 +1,134 @@
+{% extends 'base.html' %} {% block body %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/home">Railway</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/home">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/registration">Register</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Trains
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Book Train</a></li>
+            <li><a class="dropdown-item" href="#">Status</a></li>
+            <li><hr class="dropdown-divider" /></li>
+            <li><a class="dropdown-item" href="#">Available Trains</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About Me</a>
+        </li>
+
+        <li class="nav-item">
+          <a
+            class="nav-link disabled"
+            href="#"
+            tabindex="-1"
+            aria-disabled="true"
+          ></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container">
+  <h4>Check availability for <em>direction</em>:</h4>
+  <form id="form-submit" action="/booking" method="POST">
+    <div class="row">
+      <div class="col-md-6 form-group">
+        <fieldset>
+          <label for="from">From:</label>
+          <div class="col-sm-6 form-group">
+            <select
+              class="form-control custom-select browser-default"
+              required=""
+              id="from"
+              name="from"
+              onchange="getSelectValue(this.value);"
+            >
+              <option value="">Select a location...</option>
+              {% for sat in stations %}
+              <option value="{{sat}}">{{sat}}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </fieldset>
+      </div>
+      <div class="col-md-6 form-group">
+        <fieldset>
+          <label for="to">To:</label>
+          <select
+            id="to"
+            class="form-control custom-select browser-default"
+            name="to"
+            required
+          >
+            <option value="">Select a location...</option>
+            {% for sat in stations %}
+            <option value="{{sat}}">{{sat}}</option>
+
+            {% endfor %}
+          </select>
+        </fieldset>
+      </div>
+      <div class="col-md-6 form-group">
+        <fieldset>
+          <label for="departure">Departure date:</label>
+          <input
+            name="date"
+            type="date"
+            class="form-control date"
+            id="deparure"
+            placeholder="Select date..."
+          />
+        </fieldset>
+      </div>
+
+      <div class="container my-3">
+        <fieldset>
+          <button
+            type="submit"
+            id="form-submit"
+            class="btn text-center btn-primary"
+          >
+            Check Availability
+          </button>
+        </fieldset>
+      </div>
+    </div>
+  </form>
+</div>
+<script>
+  function getSelectValue(from) {
+    if (from != "") {
+      $("#to option[value='" + from + "']").hide();
+      $("#to option[value!='" + from + "']").show();
+    }
+  }
+</script>
+
+{% endblock body %}

@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>Railway - Ticket</title>
+{% endblock title %}
+{% block body %}
+    <body>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/home">Railway</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/home">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="/booking">Book</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/status">Status</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="/cancel">Cancel</a>
+              </li>
+              
+      
+              <li class="nav-item">
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"></a>
+              </li>
+            </ul>
+            <div class="d-flex">
+              <a style="position: relative;top: 4px;right: 5px;">{{user}}</a>
+              <form action="/home" method="POST">
+                <button type="submit" class="btn btn-primary btn-sm">Logout</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+          <div class="container">
+            <h3 class="text-center">Ticket Booked Successfully</h3>
+          </div>
+            <div class="container my-3">
+            <div class="card text-center">
+              <div class="card-header">
+                {{tic.train_from}} - {{tic.train_to}}
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">{{tic.train_name}} - {{tic.train_number}}</h5>
+                <p class="card-text">Departure- {{tic.dep_t.strftime("%a")}}, {{tic.dep_t.strftime("%b %d")}} - {{tic.dep_t.strftime("%H:%M")}}</p>
+                <p class="card-text">Arrival- {{tic.arr_t.strftime("%a")}}, {{tic.arr_t.strftime("%b %d")}} - {{tic.arr_t.strftime("%H:%M")}}</p>
+                <p class="card-text">PNR - {{tic.pnr}}</p>
+              </div>
+              <div class="card-footer text-muted">
+                2 days ago
+              </div>
+            </div>
+            <div class="container text-center my-3">
+            <a href="/ticketpdf/{{tic.pnr}}" class="btn text-center btn-primary">Get Ticket PDF</a>
+          </div>
+          </div>
+    </body>
+{% endblock body %}

@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% block title %}
+  <title>Railway-Status</title>
+{% endblock title %}
+
+{% block body %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/home">Railway</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="/home">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/booking">Book</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/status">Status</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/cancel">Cancel</a>
+        </li>
+        
+
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"></a>
+        </li>
+      </ul>
+      <div class="d-flex">
+        <a style="position: relative;top: 4px;right: 5px;">{{user}}</a>
+        <form action="/home" method="POST">
+          <button type="submit" class="btn btn-primary btn-sm">Logout</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</nav>
+{% if l==0 %}
+    <div class="container my-3">
+        <div class="alert alert-danger" role="alert">
+            PNR is incorrect or Ticket is Cancelled
+          </div>
+    </div>
+    <div class="container text-center my-4">
+        <a href="/home" class="btn text-center btn-primary">Home</a>
+      </div>
+{% else %}
+    
+<div class="container my-3">
+  <div class="card text-center">
+      <div class="card-header">
+        {{result[0][12]}} to {{result[0][13]}}
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">{{result[0][7]}} {{result[0][8]}}</h5>
+        <p class="card-text">Departure - {{result[0][14].strftime("%b %d, %Y")}} - {{result[0][14].strftime("%H:%M")}}</p>
+        <p class="card-text">Arrival - {{result[0][15].strftime("%b %d, %Y")}} - {{result[0][15].strftime("%H:%M")}}</p>
+        <p class="card-text">PNR - {{result[0][6]}}</p>
+      </div>
+      <div class="card-footer text-muted">
+        {{gap}}
+      </div>
+    </div>
+</div>
+<div class="container my-2">
+    <div class="container my-2">
+
+        <h5 class="text-center">Passenger Details</h5>
+    </div>
+    <div class="container my-3">
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Age</th>
+              <th scope="col">Gender</th>
+              <th scope="col">Seat Number</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+              {% for i in range(l) %}
+                  
+              <tr>
+                <th scope="row">{{result[i][0]}}</th>
+                <td>{{result[i][3]}}</td>
+                <td>{{result[i][1]}}</td>
+                <td>{{result[i][2]}}</td>
+                <td>{{result[i][5]}}</td>
+              </tr>
+              
+              {% endfor %}
+          </tbody>
+        </table>
+    </div>
+    <div class="container text-center my-4">
+      <a href="/home" class="btn text-center btn-primary">Home</a>
+    </div>
+</div>
+{% endif %}
+
+
+{% endblock body %}
